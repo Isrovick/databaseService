@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_DB=root
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+
+  pgadmin:
+    image: dpage/pgadmin4
+    networks:
+     - backend
+    ports:
+      - 80:80
+    depends_on:
+    - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    external: true
+    name: net_secured
