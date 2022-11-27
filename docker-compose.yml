@@ -20,9 +20,8 @@ services:
       - 80:80
     depends_on:
      - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: user@domain.com
-      PGADMIN_DEFAULT_PASSWORD: SuperSecret
+    env_file:
+      - .env
 
 volumes:
   db_data:
